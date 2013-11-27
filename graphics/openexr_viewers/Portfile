@@ -1,0 +1,24 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id$
+
+PortSystem          1.0
+
+name                openexr_viewers
+version             2.1.0
+categories          graphics
+license             BSD
+platforms           darwin
+maintainers         nomaintainer
+description         Viewers for the OpenEXR image format.
+long_description    ${description}
+homepage            http://www.openexr.com/
+master_sites        nongnu:openexr
+
+checksums           rmd160  de1a11d59cc29687fdebb12ff768ebcd37467b36 \
+                    sha256  51f25aff5e42af54ad60ae54c277dc82a327a2884d185d9200e004db9683c0fa
+
+depends_lib         port:openexr port:cg-toolkit port:fltk
+
+livecheck.type      regex
+livecheck.url       ${homepage}downloads.html
+livecheck.regex     $name-(\\d+(?:\\.\\d+)*)

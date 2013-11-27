@@ -1,0 +1,32 @@
+# $Id: Portfile 96950 2012-08-22 18:21:16Z blair@macports.org $
+
+PortSystem 1.0
+
+name            ilmbase
+version         2.1.0
+categories      graphics
+license         BSD
+maintainers     blair
+description     OpenEXR ILM Base libraries
+long_description \
+    Common base required by ILM code (OpenEXR). \
+    Provides the Imath, Half, Iex, IexMath, and IlmThread libraries.
+homepage        http://www.openexr.com/
+platforms       darwin
+master_sites    nongnu:openexr
+
+checksums       rmd160  a5f44efcbd2994973ee1c2baa32c357c1ea257da \
+                sha256  1e841ad89c5761940b07a125e6909ad22fe9fe0f99eadef45e0cca4efc6819b4
+
+depends_build   port:libtool port:gsed
+
+post-configure {
+    copy -force ${prefix}/bin/glibtool ${worksrcpath}/libtool
+}
+
+test.run        yes
+test.target     check
+
+livecheck.type  regex
+livecheck.url   ${homepage}downloads.html
+livecheck.regex $name-(\\d+(?:\\.\\d+)*)

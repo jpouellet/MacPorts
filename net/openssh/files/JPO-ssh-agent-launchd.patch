@@ -1,0 +1,193 @@
+diff --git a/Makefile.in b/Makefile.in
+index 92c95a9..17d210c 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -42,7 +42,7 @@ PATHS= -DSSHDIR=\"$(sysconfdir)\" \
+ CC=@CC@
+ LD=@LD@
+ CFLAGS=@CFLAGS@
+-CPPFLAGS=-I. -I$(srcdir) @CPPFLAGS@ $(PATHS) @DEFS@
++CPPFLAGS=-I. -I$(srcdir) @CPPFLAGS@ $(PATHS) @DEFS@ -DAPPLE_LAUNCHD
+ LIBS=@LIBS@
+ K5LIBS=@K5LIBS@
+ GSSLIBS=@GSSLIBS@
+@@ -155,7 +155,7 @@ ssh-add$(EXEEXT): $(LIBCOMPAT) libssh.a ssh-add.o
+ 	$(LD) -o $@ ssh-add.o $(LDFLAGS) -lssh -lopenbsd-compat $(LIBS)
+ 
+ ssh-agent$(EXEEXT): $(LIBCOMPAT) libssh.a ssh-agent.o ssh-pkcs11-client.o
+-	$(LD) -o $@ ssh-agent.o ssh-pkcs11-client.o $(LDFLAGS) -lssh -lopenbsd-compat $(LIBS)
++	$(LD) -o $@ ssh-agent.o ssh-pkcs11-client.o $(LDFLAGS) -lssh -lopenbsd-compat $(LIBS) -framework ServiceManagement
+ 
+ ssh-keygen$(EXEEXT): $(LIBCOMPAT) libssh.a ssh-keygen.o
+ 	$(LD) -o $@ ssh-keygen.o $(LDFLAGS) -lssh -lopenbsd-compat $(LIBS)
+diff --git a/ssh-agent.c b/ssh-agent.c
+index c3b1172..ff873b7 100644
+--- a/ssh-agent.c
++++ b/ssh-agent.c
+@@ -65,6 +65,9 @@
+ #include <time.h>
+ #include <string.h>
+ #include <unistd.h>
++#ifdef APPLE_LAUNCHD
++#include <launch.h>
++#endif
+ 
+ #include "xmalloc.h"
+ #include "ssh.h"
+@@ -1113,6 +1116,9 @@ usage(void)
+ 	fprintf(stderr, "  -c          Generate C-shell commands on stdout.\n");
+ 	fprintf(stderr, "  -s          Generate Bourne shell commands on stdout.\n");
+ 	fprintf(stderr, "  -k          Kill the current agent.\n");
++#ifdef APPLE_LAUNCHD
++	fprintf(stderr, "  -l          Start in launchd mode.\n");
++#endif
+ 	fprintf(stderr, "  -d          Debug mode.\n");
+ 	fprintf(stderr, "  -a socket   Bind agent socket to given name.\n");
+ 	fprintf(stderr, "  -t life     Default identity lifetime (seconds).\n");
+@@ -1122,7 +1128,11 @@ usage(void)
+ int
+ main(int ac, char **av)
+ {
++#ifdef APPLE_LAUNCHD
++	int c_flag = 0, d_flag = 0, k_flag = 0, s_flag = 0, l_flag = 0;
++#else
+ 	int c_flag = 0, d_flag = 0, k_flag = 0, s_flag = 0;
++#endif
+ 	int sock, fd, ch, result, saved_errno;
+ 	u_int nalloc;
+ 	char *shell, *format, *pidstr, *agentsocket = NULL;
+@@ -1156,7 +1166,11 @@ main(int ac, char **av)
+ 	__progname = ssh_get_progname(av[0]);
+ 	seed_rng();
+ 
++#ifdef APPLE_LAUNCHD
++	while ((ch = getopt(ac, av, "cdklsa:t:")) != -1) {
++#else
+ 	while ((ch = getopt(ac, av, "cdksa:t:")) != -1) {
++#endif
+ 		switch (ch) {
+ 		case 'c':
+ 			if (s_flag)
+@@ -1166,6 +1180,11 @@ main(int ac, char **av)
+ 		case 'k':
+ 			k_flag++;
+ 			break;
++#ifdef APPLE_LAUNCHD
++		case 'l':
++			l_flag++;
++			break;
++#endif
+ 		case 's':
+ 			if (c_flag)
+ 				usage();
+@@ -1192,7 +1211,11 @@ main(int ac, char **av)
+ 	ac -= optind;
+ 	av += optind;
+ 
++#ifdef APPLE_LAUNCHD
++	if (ac > 0 && (c_flag || k_flag || s_flag || d_flag || l_flag))
++#else
+ 	if (ac > 0 && (c_flag || k_flag || s_flag || d_flag))
++#endif
+ 		usage();
+ 
+ 	if (ac == 0 && !c_flag && !s_flag) {
+@@ -1248,6 +1271,60 @@ main(int ac, char **av)
+ 	 * Create socket early so it will exist before command gets run from
+ 	 * the parent.
+ 	 */
++#ifdef APPLE_LAUNCHD
++	if (l_flag) {
++		launch_data_t checkin_request;
++		launch_data_t checkin_response;
++		launch_data_t sockets_dict;
++		launch_data_t listeners_dict;
++		size_t listeners_count;
++		size_t listeners_i;
++
++		checkin_request = launch_data_new_string(LAUNCH_KEY_CHECKIN);
++		if (checkin_request == NULL)
++			fatal("unable to build launchd checkin string");
++
++		checkin_response = launch_msg(checkin_request);
++		if (checkin_response == NULL)
++			fatal("launchd IPC failure");
++
++		if (launch_data_get_type(checkin_response) != LAUNCH_DATA_DICTIONARY)
++			fatal("launchd response is not a dictionary");
++
++		sockets_dict = launch_data_dict_lookup(checkin_response, LAUNCH_JOBKEY_SOCKETS);
++		if (sockets_dict == NULL)
++			fatal("launchd plist missing sockets");
++
++		if (launch_data_get_type(sockets_dict) != LAUNCH_DATA_DICTIONARY)
++			fatal("launchd sockets is not a LAUNCH_DATA_DICTIONARY");
++
++		listeners_dict = launch_data_dict_lookup(sockets_dict, "Listeners");
++		if (listeners_dict == NULL)
++			fatal("launchd plist missing listeners");
++
++		if (launch_data_get_type(listeners_dict) != LAUNCH_DATA_ARRAY)
++			fatal("launchd listeners is not a LAUNCH_DATA_ARRAY");
++
++		listeners_count = launch_data_array_get_count(listeners_dict);
++		if (listeners_count <= 0)
++			fatal("no sockets inherited from launchd");
++
++		for (listeners_i = 0; listeners_i < listeners_count; listeners_i++) {
++			launch_data_t inherited_sock = launch_data_array_get_index(listeners_dict, listeners_i);
++			if (launch_data_get_type(inherited_sock) != LAUNCH_DATA_FD)
++				fatal("launchd passed a listener that is not a LAUNCH_DATA_FD");
++			new_socket(AUTH_SOCKET, launch_data_get_fd(inherited_sock));
++		}
++
++		/*
++		 * I couldn't find clear documentation on launchd indicating
++		 * which of these functions return things that need to be freed,
++		 * so there may be leaks.
++		 */
++		launch_data_free(checkin_request);
++		launch_data_free(checkin_response);
++	} else {
++#endif /* APPLE_LAUNCHD */
+ 	sock = socket(AF_UNIX, SOCK_STREAM, 0);
+ 	if (sock < 0) {
+ 		perror("socket");
+@@ -1269,6 +1346,9 @@ main(int ac, char **av)
+ 		perror("listen");
+ 		cleanup_exit(1);
+ 	}
++#ifdef APPLE_LAUNCHD
++	}
++#endif
+ 
+ 	/*
+ 	 * Fork, and have the parent execute the command, if any, or present
+@@ -1282,6 +1362,12 @@ main(int ac, char **av)
+ 		printf("echo Agent pid %ld;\n", (long)parent_pid);
+ 		goto skip;
+ 	}
++
++#ifdef APPLE_LAUNCHD
++	if (l_flag)
++		goto skip;
++#endif
++
+ 	pid = fork();
+ 	if (pid == -1) {
+ 		perror("fork");
+@@ -1340,7 +1426,14 @@ skip:
+ #ifdef ENABLE_PKCS11
+ 	pkcs11_init(0);
+ #endif
++
++#ifdef APPLE_LAUNCHD
++	if (!l_flag)
++		new_socket(AUTH_SOCKET, sock);
++#else
+ 	new_socket(AUTH_SOCKET, sock);
++#endif
++
+ 	if (ac > 0)
+ 		parent_alive_interval = 10;
+ 	idtab_init();

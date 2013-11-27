@@ -1,0 +1,51 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id$
+
+PortSystem          1.0
+
+name                cxxtest
+version             4.3
+categories          devel
+license             GPL-3
+platforms           darwin
+maintainers         vt.edu:jpo openmaintainer
+description         C++ unit testing framework
+long_description    CxxTest is a unit testing framework for C++ that is \
+                    similar in spirit to JUnit, CppUnit, and xUnit. CxxTest \
+                    is easy to use because it does not require precompiling a \
+                    CxxTest testing library, it employs no advanced features \
+                    of C++ (e.g. RTTI) and it supports a very flexible form \
+                    of test discovery.
+homepage            http://cxxtest.com/
+master_sites        sourceforge:project/cxxtest/cxxtest/${version}
+
+checksums           rmd160  598f50255eb4acda60fded5f4644b68093ad143c \
+                    sha256  356d0f4810e8eb5c344147a0cca50fc0d84122c286e7644b61cb365c2ee22083
+
+depends_build       port:asciidoc
+depends_lib         port:python33
+
+use_configure       no
+
+build.args-append   PY=python3
+
+destroot {
+    xinstall -m 755 -W ${worksrcpath} pngcheck pngsplit png-fix-IDAT-windowsize ${destroot}${prefix}/bin
+
+    set docdir ${prefix}/share/doc/${subport}
+    xinstall -d ${destroot}${docdir}
+    xinstall -m 644 -W ${worksrcpath} README ${destroot}${docdir}
+}
+
+variant html-doc    {
+    build.target-append     html
+}
+variant epub-doc    {
+    build.target-append     epub
+}
+variant pdf-doc     {
+    build.target-append     pdf
+    depends_build-append    bin:dblatex:dblatex
+}
+
+default_variants    +html-doc
