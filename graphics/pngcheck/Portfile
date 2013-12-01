@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id$
+# $Id: Portfile 114015 2013-11-27 12:29:51Z ryandesign@macports.org $
 
 PortSystem          1.0
 
@@ -33,10 +33,10 @@ variant universal   {}
 use_configure       no
 
 build.pre_args-append   -f Makefile.unx
-build.args-append       CC="${configure.cc} [get_canonical_archflags]" \
+build.args-append       CC="${configure.cc} [get_canonical_archflags cc]" \
                         LD="${configure.cc} [get_canonical_archflags ld]" \
-                        ZLIB="-L${prefix}/lib -lz" \
-                        ZINC=""
+                        ZLIB="${configure.ldflags} -lz" \
+                        ZINC="${configure.cppflags}"
 
 destroot {
     xinstall -m 755 -W ${worksrcpath} pngcheck pngsplit png-fix-IDAT-windowsize ${destroot}${prefix}/bin
@@ -46,5 +46,4 @@ destroot {
     xinstall -m 644 ${worksrcpath}/README ${destroot}${docdir}
 }
 
-livecheck.name      png-mng
-livecheck.regex     $name-(\\d+(?:\\.\\d+)*)
+livecheck.regex     ${name}-(\\d+(?:\\.\\d+)*)
