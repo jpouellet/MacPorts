@@ -1,0 +1,44 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id$
+
+PortSystem          1.0
+
+name                dmenu
+version             4.5
+categories          x11
+license             MIT
+platforms           darwin
+maintainers         vt.edu:jpo openmaintainer
+description         efficient dynamic menu for X
+long_description    dmenu is a dynamic menu for X, originally designed for \
+                    dwm. It manages large numbers of user-defined menu items \
+                    efficiently.
+homepage            http://tools.suckless.org/dmenu/
+master_sites        http://dl.suckless.org/tools/
+
+checksums           rmd160  b771a84e0e9a8fbb29317c07fa77f92b64dcdc2f \
+                    sha256  082cd698d82125ca0b3989006fb84ac4675c2a5585bf5bb8af0ea09cfb95a850
+
+depends_lib         port:xorg-libX11
+
+variant universal   {}
+variant xinerama    {
+    depends_lib-append  port:xorg-libXinerama
+}
+default_variants    +xinerama
+
+use_configure       no
+
+build.args-append   CC="${configure.cc} [get_canonical_archflags]" \
+                    X11INC="${prefix}/include" \
+                    X11LIB="${prefix}/lib"
+
+destroot.args-append    PREFIX="${prefix}"
+
+if {![variant_isset xinerama]} {
+    build.args-append   XINERAMALIBS="" XINERAMAFLAGS=""
+}
+
+livecheck.type      regex
+livecheck.url       ${master_sites}
+livecheck.regex     ${name}-(\\d+(?:\\.\\d+)*)
