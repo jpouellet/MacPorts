@@ -22,7 +22,7 @@ checksums           rmd160  b771a84e0e9a8fbb29317c07fa77f92b64dcdc2f \
 depends_lib         port:xorg-libX11
 
 variant universal   {}
-variant xinerama    {
+variant xinerama    {Add Xinerama support} {
     depends_lib-append  port:xorg-libXinerama
 }
 default_variants    +xinerama
