@@ -26,6 +26,8 @@ depends_lib         port:xorg-libxcb \
 
 use_bzip2           yes
 
+configure.cppflags-append "-I${filespath}/include"
+
 livecheck.type      regex
 livecheck.url       ${master_sites}?C=M&O=D
 livecheck.regex     xcb-util-cursor-(\\d+(?:\\.\\d+)*)
