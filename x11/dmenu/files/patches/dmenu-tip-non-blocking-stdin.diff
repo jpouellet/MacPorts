@@ -1,0 +1,110 @@
+diff -r 2b9683c50723 dmenu.c
+--- a/dmenu.c	Wed Dec 01 20:25:10 2010 +0000
++++ b/dmenu.c	Tue Dec 07 17:32:54 2010 +0100
+@@ -4,6 +4,8 @@
+ #include <stdlib.h>
+ #include <string.h>
+ #include <unistd.h>
++#include <fcntl.h>
++#include <sys/select.h>
+ #include <X11/Xlib.h>
+ #include <X11/Xatom.h>
+ #include <X11/Xutil.h>
+@@ -34,6 +36,7 @@
+ static size_t nextrune(int incr);
+ static void paste(void);
+ static void readstdin(void);
++static void readXEvent(void);
+ static void run(void);
+ static void setup(void);
+ static void usage(void);
+@@ -59,6 +62,7 @@
+ static Item *items = NULL;
+ static Item *matches, *sel;
+ static Item *prev, *curr, *next;
++static Item **end = &items;
+ static Window root, win;
+ 
+ static int (*fstrncmp)(const char *, const char *, size_t) = strncmp;
+@@ -102,7 +106,6 @@
+ 
+ 	dc = initdc();
+ 	initfont(dc, font);
+-	readstdin();
+ 	setup();
+ 	run();
+ 
+@@ -433,9 +436,9 @@
+ void
+ readstdin(void) {
+ 	char buf[sizeof text], *p;
+-	Item *item, **end;
++	Item *item;
+ 
+-	for(end = &items; fgets(buf, sizeof buf, stdin); *end = item, end = &item->next) {
++	while (fgets(buf, sizeof buf, stdin)) {
+ 		if((p = strchr(buf, '\n')))
+ 			*p = '\0';
+ 		if(!(item = malloc(sizeof *item)))
+@@ -444,14 +447,17 @@
+ 			eprintf("cannot strdup %u bytes\n", strlen(buf)+1);
+ 		item->next = item->left = item->right = NULL;
+ 		inputw = MAX(inputw, textw(dc, item->text));
++		*end = item;
++		end = &item->next;
+ 	}
++	match();
+ }
+ 
+ void
+-run(void) {
++readXEvent(void) {
+ 	XEvent ev;
+ 
+-	while(!XNextEvent(dc->dpy, &ev))
++	while(XPending(dc->dpy) && !XNextEvent(dc->dpy, &ev))
+ 		switch(ev.type) {
+ 		case Expose:
+ 			if(ev.xexpose.count == 0)
+@@ -472,6 +478,32 @@
+ }
+ 
+ void
++run(void) {
++	fd_set fds;
++	int x11_fd, n, nfds, flags;
++
++	flags = fcntl(STDIN_FILENO, F_GETFL);
++	flags |= O_NONBLOCK;
++	fcntl(STDIN_FILENO, F_SETFL, flags);
++
++	x11_fd = XConnectionNumber(dc->dpy);
++	nfds = MAX(STDIN_FILENO, x11_fd) + 1;
++	while(1) {
++		FD_ZERO(&fds);
++		if (!feof(stdin))
++			FD_SET(STDIN_FILENO, &fds);
++		FD_SET(x11_fd, &fds);
++		n = select(nfds, &fds, NULL, NULL, NULL);
++		if(n < 0)
++			eprintf("cannot select\n");
++		if (FD_ISSET(STDIN_FILENO, &fds))
++			readstdin();
++		if (FD_ISSET(x11_fd, &fds))
++			readXEvent();
++	}
++}
++
++void
+ setup(void) {
+ 	int x, y, screen;
+ 	XSetWindowAttributes wa;
+@@ -531,7 +563,7 @@
+ 	promptw = prompt ? textw(dc, prompt) : 0;
+ 	XMapRaised(dc->dpy, win);
+ 	text[0] = '\0';
+-	match();
++	drawmenu();
+ }
+ 
+ void

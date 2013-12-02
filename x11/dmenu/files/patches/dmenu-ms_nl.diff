@@ -1,0 +1,79 @@
+diff -up dmenu-4.0/dmenu.1 dmenu-4.0_ms_nl/dmenu.1
+--- dmenu-4.0/dmenu.1	2009-04-18 13:50:04.000000000 +0200
++++ dmenu-4.0_ms_nl/dmenu.1	2009-11-19 23:01:15.000000000 +0100
+@@ -11,6 +11,8 @@ dmenu \- dynamic menu
+ .RB [ \-p " <prompt>"]
+ .RB [ \-sb " <color>"]
+ .RB [ \-sf " <color>"]
++.RB [ \-ms ]
++.RB [ \-nl ]
+ .RB [ \-v ]
+ .SH DESCRIPTION
+ .SS Overview
+@@ -44,6 +46,12 @@ defines the selected background color (#
+ .B \-sf <color>
+ defines the selected foreground color (#RGB, #RRGGBB, and color names are supported).
+ .TP
++.B \-ms
++multi-select; selecting an item and pressing return won't terminate dmenu.
++.TP
++.B \-nl
++seperates standard output by newlines.
++.TP
+ .B \-v
+ prints version information to standard output, then exits.
+ .SH USAGE
+diff -up dmenu-4.0/dmenu.c dmenu-4.0_ms_nl/dmenu.c
+--- dmenu-4.0/dmenu.c	2009-04-18 13:50:04.000000000 +0200
++++ dmenu-4.0_ms_nl/dmenu.c	2009-11-19 23:04:59.000000000 +0100
+@@ -69,6 +69,7 @@ static int textw(const char *text);
+ /* variables */
+ static char *maxname = NULL;
+ static char *prompt = NULL;
++static char *nl = "";
+ static char text[4096];
+ static int cmdw = 0;
+ static int promptw = 0;
+@@ -77,6 +78,7 @@ static int screen;
+ static unsigned int mw, mh;
+ static unsigned int numlockmask = 0;
+ static Bool running = True;
++static Bool multiselect = False;
+ static Display *dpy;
+ static DC dc;
+ static Item *allitems = NULL;	/* first of all items */
+@@ -448,13 +450,13 @@ kpress(XKeyEvent * e) {
+ 		break;
+ 	case XK_Return:
+ 		if((e->state & ShiftMask) && *text)
+-			fprintf(stdout, "%s", text);
++			fprintf(stdout, "%s%s", text, nl);
+ 		else if(sel)
+-			fprintf(stdout, "%s", sel->text);
++			fprintf(stdout, "%s%s", sel->text, nl);
+ 		else if(*text)
+-			fprintf(stdout, "%s", text);
++			fprintf(stdout, "%s%s", text, nl);
+ 		fflush(stdout);
+-		running = False;
++		running = multiselect;
+ 		break;
+ 	case XK_Right:
+ 		if(!(sel && sel->right))
+@@ -694,11 +696,15 @@ main(int argc, char *argv[]) {
+ 		else if(!strcmp(argv[i], "-sf")) {
+ 			if(++i < argc) selfgcolor = argv[i];
+ 		}
++		else if(!strcmp(argv[i], "-ms"))
++			multiselect = True;
++		else if(!strcmp(argv[i], "-nl"))
++			nl = "\n";
+ 		else if(!strcmp(argv[i], "-v"))
+ 			eprint("dmenu-"VERSION", © 2006-2008 dmenu engineers, see LICENSE for details\n");
+ 		else
+ 			eprint("usage: dmenu [-i] [-b] [-fn <font>] [-nb <color>] [-nf <color>]\n"
+-			       "             [-p <prompt>] [-sb <color>] [-sf <color>] [-v]\n");
++			       "             [-p <prompt>] [-sb <color>] [-sf <color>] [-ms] [-nl] [-v]\n");
+ 	if(!setlocale(LC_CTYPE, "") || !XSupportsLocale())
+ 		fprintf(stderr, "warning: no locale support\n");
+ 	if(!(dpy = XOpenDisplay(NULL)))

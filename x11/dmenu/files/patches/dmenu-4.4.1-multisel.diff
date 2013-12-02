@@ -1,0 +1,60 @@
+diff -r bebcf140b8a9 dmenu.1
+--- a/dmenu.1	Wed Oct 26 14:16:12 2011 +0100
++++ b/dmenu.1	Thu Oct 27 12:56:43 2011 -0700
+@@ -85,2 +85,5 @@
+ .TP
++.B Ctrl-Return
++Confirm selection.  Prints the selected item to stdout and continues.
++.TP
+ .B Shift\-Return (Ctrl\-Shift\-j)
+diff -r bebcf140b8a9 dmenu.c
+--- a/dmenu.c	Wed Oct 26 14:16:12 2011 +0100
++++ b/dmenu.c	Thu Oct 27 12:56:43 2011 -0700
+@@ -24,2 +24,3 @@
+ 	Item *left, *right;
++	Bool out;
+ };
+@@ -51,2 +52,4 @@
+ static const char *selfgcolor  = "#ffffff";
++static const char *outbgcolor  = "#00ffff";
++static const char *outfgcolor  = "#000000";
+ static unsigned int lines = 0;
+@@ -54,2 +57,3 @@
+ static unsigned long selcol[ColLast];
++static unsigned long outcol[ColLast];
+ static Atom clip, utf8;
+@@ -187,3 +191,4 @@
+ 			dc->y += dc->h;
+-			drawtext(dc, item->text, (item == sel) ? selcol : normcol);
++			drawtext(dc, item->text, (item == sel) ? selcol :
++			                         (item->out)   ? outcol : normcol);
+ 		}
+@@ -199,3 +204,4 @@
+ 			dc->w = MIN(textw(dc, item->text), mw - dc->x - textw(dc, ">"));
+-			drawtext(dc, item->text, (item == sel) ? selcol : normcol);
++			drawtext(dc, item->text, (item == sel) ? selcol :
++			                         (item->out)   ? outcol : normcol);
+ 		}
+@@ -280,2 +286,5 @@
+ 			return;
++		case XK_Return:
++		case XK_KP_Enter:
++			break;
+ 		default:
+@@ -352,3 +361,6 @@
+ 		puts((sel && !(ev->state & ShiftMask)) ? sel->text : text);
+-		exit(EXIT_SUCCESS);
++		if(!(ev->state & ControlMask))
++			exit(EXIT_SUCCESS);
++		sel->out = True;
++		break;
+ 	case XK_Right:
+@@ -468,2 +480,3 @@
+ 			eprintf("cannot strdup %u bytes:", strlen(buf)+1);
++		items[i].out = False;
+ 		if(strlen(items[i].text) > max)
+@@ -519,2 +532,4 @@
+ 	selcol[ColFG]  = getcolor(dc, selfgcolor);
++	outcol[ColBG]  = getcolor(dc, outbgcolor);
++	outcol[ColFG]  = getcolor(dc, outfgcolor);
+ 

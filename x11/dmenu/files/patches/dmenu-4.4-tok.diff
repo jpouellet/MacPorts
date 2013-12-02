@@ -1,0 +1,103 @@
+diff -r f6b31468f983 dmenu.1
+--- a/dmenu.1	Sun Jul 24 20:04:58 2011 +0100
++++ b/dmenu.1	Mon Sep 12 10:43:11 2011 +0100
+@@ -6,6 +6,7 @@
+ .RB [ \-b ]
+ .RB [ \-f ]
+ .RB [ \-i ]
++.RB [ \-t ]
+ .RB [ \-l
+ .IR lines ]
+ .RB [ \-p
+@@ -48,6 +49,9 @@
+ .B \-i
+ dmenu matches menu items case insensitively.
+ .TP
++.B \-t
++dmenu uses space\-separated tokens to match menu items.
++.TP
+ .BI \-l " lines"
+ dmenu lists items vertically, with the given number of lines.
+ .TP
+diff -r f6b31468f983 dmenu.c
+--- a/dmenu.c	Sun Jul 24 20:04:58 2011 +0100
++++ b/dmenu.c	Mon Sep 12 10:43:11 2011 +0100
+@@ -30,7 +30,8 @@
+ static void grabkeyboard(void);
+ static void insert(const char *str, ssize_t n);
+ static void keypress(XKeyEvent *ev);
+-static void match(Bool sub);
++static void matchstr(Bool sub);
++static void matchtok(Bool sub);
+ static size_t nextrune(int inc);
+ static void paste(void);
+ static void readstdin(void);
+@@ -61,6 +62,7 @@
+ 
+ static int (*fstrncmp)(const char *, const char *, size_t) = strncmp;
+ static char *(*fstrstr)(const char *, const char *) = strstr;
++static void (*match)(Bool) = matchstr;
+ 
+ int
+ main(int argc, char *argv[]) {
+@@ -81,6 +83,8 @@
+ 			fstrncmp = strncasecmp;
+ 			fstrstr = cistrstr;
+ 		}
++		else if(!strcmp(argv[i], "-t"))
++			match = matchtok;
+ 		else if(i+1 == argc)
+ 			usage();
+ 		/* double flags */
+@@ -362,7 +366,7 @@
+ }
+ 
+ void
+-match(Bool sub) {
++matchstr(Bool sub) {
+ 	size_t len = strlen(text);
+ 	Item *lexact, *lprefix, *lsubstr, *exactend, *prefixend, *substrend;
+ 	Item *item, *lnext;
+@@ -402,6 +406,33 @@
+ 	calcoffsets();
+ }
+ 
++void
++matchtok(Bool sub) {
++	char buf[sizeof text];
++	char **tokv, *s;
++	int tokc, i;
++	Item *item, *end;
++
++	tokc = 0;
++	tokv = NULL;
++	strcpy(buf, text);
++	for(s = strtok(buf, " "); s; tokv[tokc-1] = s, s = strtok(NULL, " "))
++		if(!(tokv = realloc(tokv, ++tokc * sizeof *tokv)))
++			eprintf("cannot realloc %u bytes\n", tokc * sizeof *tokv);
++
++	matches = end = NULL;
++	for(item = items; item->text; item++) {
++		for(i = 0; i < tokc; i++)
++			if(!fstrstr(item->text, tokv[i]))
++				break;
++		if(i == tokc)
++			appenditem(item, &matches, &end);
++	}
++	free(tokv);
++	curr = prev = next = sel = matches;
++	calcoffsets();
++}
++
+ size_t
+ nextrune(int inc) {
+ 	ssize_t n;
+@@ -532,7 +563,7 @@
+ 
+ void
+ usage(void) {
+-	fputs("usage: dmenu [-b] [-f] [-i] [-l lines] [-p prompt] [-fn font]\n"
++	fputs("usage: dmenu [-b] [-f] [-i] [-t] [-l lines] [-p prompt] [-fn font]\n"
+ 	      "             [-nb color] [-nf color] [-sb color] [-sf color] [-v]\n", stderr);
+ 	exit(EXIT_FAILURE);
+ }

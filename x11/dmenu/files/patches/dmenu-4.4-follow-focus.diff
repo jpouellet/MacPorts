@@ -1,0 +1,21 @@
+diff -r f6b31468f983 dmenu.c
+--- a/dmenu.c	Sun Jul 24 20:04:58 2011 +0100
++++ b/dmenu.c	Tue Aug 02 23:22:00 2011 +0200
+@@ -492,11 +492,14 @@
+ 	mh = (lines + 1) * bh;
+ #ifdef XINERAMA
+ 	if((info = XineramaQueryScreens(dc->dpy, &n))) {
+-		int i, di;
+-		unsigned int du;
++                int i, revert;
+ 		Window dw;
++                XWindowAttributes wa;
++                Window chi;
+ 
+-		XQueryPointer(dc->dpy, root, &dw, &dw, &x, &y, &di, &di, &du);
++                XGetInputFocus(dc->dpy, &dw, &revert);
++                XGetWindowAttributes(dc->dpy, dw, &wa);
++                XTranslateCoordinates(dc->dpy, wa.root, wa.root, wa.x, wa.y, &x, &y, &chi);
+ 		for(i = 0; i < n-1; i++)
+ 			if(INRECT(x, y, info[i].x_org, info[i].y_org, info[i].width, info[i].height))
+ 				break;

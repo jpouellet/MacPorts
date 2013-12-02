@@ -1,0 +1,62 @@
+diff -r a79e4a9cb167 dmenu.1
+--- a/dmenu.1	Sat Nov 20 09:25:08 2010 +0000
++++ b/dmenu.1	Sat Nov 20 18:51:43 2010 +0000
+@@ -5,6 +5,7 @@
+ .B dmenu
+ .RB [ \-b ]
+ .RB [ \-i ]
++.RB [ \-r ]
+ .RB [ \-l
+ .IR lines ]
+ .RB [ \-m
+@@ -50,6 +51,9 @@
+ .B \-i
+ dmenu matches menu items case insensitively.
+ .TP
++.B \-r
++dmenu outputs text each time a key is pressed.
++.TP
+ .BI \-l " lines"
+ dmenu lists items vertically, with the given number of lines.
+ .TP
+diff -r a79e4a9cb167 dmenu.c
+--- a/dmenu.c	Sat Nov 20 09:25:08 2010 +0000
++++ b/dmenu.c	Sat Nov 20 18:51:43 2010 +0000
+@@ -54,7 +54,7 @@
+ static unsigned long normcol[ColLast];
+ static unsigned long selcol[ColLast];
+ static Atom utf8;
+-static Bool topbar = True;
++static Bool topbar = True, incremental = False;
+ static DC *dc;
+ static Item *items = NULL;
+ static Item *matches, *sel;
+@@ -78,6 +78,8 @@
+ 			topbar = False;
+ 		else if(!strcmp(argv[i], "-i"))
+ 			fstrncmp = strncasecmp;
++		else if(!strcmp(argv[i], "-r"))
++			incremental = 1;
+ 		else if(i == argc-1)
+ 			usage();
+ 		/* double flags */
+@@ -364,6 +366,10 @@
+ 		match();
+ 		break;
+ 	}
++	if(incremental) {
++		fprintf(stdout, "%s\n", text);
++		fflush(stdout);
++	}
+ 	drawmenu();
+ }
+ 
+@@ -536,7 +542,7 @@
+ 
+ void
+ usage(void) {
+-	fputs("usage: dmenu [-b] [-i] [-l lines] [-m monitor] [-p prompt] [-fn font]\n"
++	fputs("usage: dmenu [-b] [-i] [-r] [-l lines] [-m monitor] [-p prompt] [-fn font]\n"
+ 	      "             [-nb color] [-nf color] [-sb color] [-sf color] [-v]\n", stderr);
+ 	exit(EXIT_FAILURE);
+ }
