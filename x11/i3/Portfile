@@ -8,7 +8,7 @@ version             4.6
 categories          x11 x11-wm
 license             BSD
 platforms           darwin
-maintainers         nomaintainer
+maintainers         vt.edu:jpo openmaintainer
 description         improved tiling wm
 long_description    i3 is a tiling window manager, completely written from \
                     scratch. The target platforms are GNU/Linux and BSD \
