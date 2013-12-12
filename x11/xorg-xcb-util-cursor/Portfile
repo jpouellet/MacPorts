@@ -7,7 +7,7 @@ name                xorg-xcb-util-cursor
 version             0.1.1
 categories          x11 devel
 license             X11
-platforms           darwin macosx
+platforms           darwin
 maintainers         vt.edu:jpo openmaintainer
 description         X.org xcb-util-cursor
 long_description    Utility libraries for XCB
