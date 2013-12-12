@@ -5,9 +5,6 @@ These are some [MacPorts] I maintain, in various states of being updated.
  - devel/[cxxtest]: C++ unit testing framework
 [cxxtest]: http://cxxtest.com/
 
- - devel/[tracetest]: test port for trace mode
-[tracetest]: 
-
  - graphics/[ilmbase]: OpenEXR ILM Base libraries
 [ilmbase]: http://www.openexr.com/
 

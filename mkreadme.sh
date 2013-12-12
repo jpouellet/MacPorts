@@ -2,7 +2,7 @@
 
 cd "$(dirname "$0")"
 
-for portfile in */*/Portfile; do
+for portfile in $(git ls-files --ignored -x Portfile); do
 	port="$(dirname "$portfile")"
 	name="$(basename "$port")"
 	category="$(dirname "$port")"
