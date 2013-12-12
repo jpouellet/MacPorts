@@ -1,0 +1,55 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 94971 2012-07-03 07:01:33Z mww@macports.org $
+
+PortSystem 1.0
+
+name                libb64
+version             1.2.1
+categories          mail
+license             public-domain
+platforms           darwin
+maintainers         vt.edu:jpo openmaintainer
+description         C library for fast encoding/decoding into and from base64
+long_description    libb64 is a library of ANSI C routines for fast \
+                    encoding/decoding data into and from a base64-encoded \
+                    format. C++ wrappers are included, as well as the source \
+                    code for standalone encoding and decoding executables.
+homepage            http://libb64.sourceforge.net/
+master_sites        sourceforge:project/libb64/libb64/libb64
+
+checksums           rmd160  4d830ddfce762c3ca6f441c5c2dca5326d072bd7 \
+                    sha256  20106f0ba95cfd9c35a13c71206643e3fb3e46512df3e2efb2fdbf87116314b2
+
+depends_build       port:makedepend
+
+use_zip             yes
+
+use_configure       no
+universal_variant   no
+
+pre-build {
+    system printenv
+}
+
+build.type          gnu
+build.env-append    CC="${configure.cc}"
+
+destroot {
+    # bin
+    xinstall -m 755 -W ${worksrcpath}/src base64 ${destroot}${prefix}/bin
+
+    # lib
+    xinstall -m 644 ${worksrcpath}/src/libb64.a ${destroot}${prefix}/lib
+
+    # include
+    xinstall -d ${destroot}${prefix}/include/b64
+    eval xinstall -m 644 [glob ${worksrcpath}/include/b64/*] \
+        ${destroot}${prefix}/include/b64
+
+    # doc
+    xinstall -d ${destroot}${prefix}/share/doc/${name}
+    eval xinstall -m 644 AUTHORS BENCHMARKS CHANGELOG LICENSE README TODO \
+        ${destroot}${prefix}/share/doc/${name}
+}
+
+livecheck.regex     ${name}-(\\d+(?:\\.\\d+)*)
