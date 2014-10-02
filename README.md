@@ -29,6 +29,9 @@ These are some [MacPorts] I maintain, in various states of being updated.
  - net/[openssh]: OpenSSH secure login server
 [openssh]: http://www.openbsd.org/openssh/
 
+ - net/[thttpd]: simple, small, portable, fast, and secure HTTP server
+[thttpd]: http://acme.com/software/thttpd/
+
  - security/[bcrypt]: cross platform file encryption utility
 [bcrypt]: http://bcrypt.sourceforge.net/
 
