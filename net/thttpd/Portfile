@@ -38,4 +38,5 @@ pre-configure {
    }
 }
 
+livecheck.type      regex
 livecheck.regex     ${name}-(\\d+(?:\\.\\d+)*)
