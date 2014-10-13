@@ -32,6 +32,9 @@ These are some [MacPorts] I maintain, in various states of being updated.
  - net/[thttpd]: simple, small, portable, fast, and secure HTTP server
 [thttpd]: http://acme.com/software/thttpd/
 
+ - perl/[p5-json-parse]: Read JSON into a Perl variable
+[p5-json-parse]: http://search.cpan.org/dist/JSON-Parse/
+
  - security/[bcrypt]: cross platform file encryption utility
 [bcrypt]: http://bcrypt.sourceforge.net/
 
