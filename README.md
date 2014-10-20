@@ -38,6 +38,9 @@ These are some [MacPorts] I maintain, in various states of being updated.
  - security/[bcrypt]: cross platform file encryption utility
 [bcrypt]: http://bcrypt.sourceforge.net/
 
+ - textproc/[mdocml]: UNIX manpage compiler
+[mdocml]: http://mdocml.bsd.lv/
+
  - x11/[dmenu]: efficient dynamic menu for X
 [dmenu]: http://tools.suckless.org/dmenu/
 
