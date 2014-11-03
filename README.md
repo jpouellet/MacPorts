@@ -38,6 +38,9 @@ These are some [MacPorts] I maintain, in various states of being updated.
  - security/[bcrypt]: cross platform file encryption utility
 [bcrypt]: http://bcrypt.sourceforge.net/
 
+ - textproc/[cloc]: counts lines of course code
+[cloc]: http://cloc.sourceforge.net/
+
  - textproc/[mdocml]: UNIX manpage compiler
 [mdocml]: http://mdocml.bsd.lv/
 
