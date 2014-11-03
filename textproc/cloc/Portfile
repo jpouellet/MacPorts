@@ -1,0 +1,36 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id$
+
+PortSystem          1.0
+
+name                cloc
+version             1.62
+categories          textproc
+license             GPL-2
+platforms           darwin
+maintainers         vt.edu:jpo openmaintainer
+description         counts lines of course code
+long_description    cloc counts blank lines, comment lines, and physical \
+                    lines of source code in many programming languages. \
+                    Given two versions of a code base, cloc can compute \
+                    differences in blank, comment, and source lines.
+
+homepage            http://cloc.sourceforge.net/
+master_sites        sourceforge
+
+checksums           rmd160  ab487a6e81a4f2663e632e27237d07faf948784c \
+                    sha256  c4111ef5768b1c2844c0c826988df6f92fbb5aa7452a5005d3a031d68631acb3
+
+depends_run         port:perl5 port:p5-algorithm-diff port:p5-regexp-common \
+                    port:p5-digest-md5
+
+use_configure       no
+
+patch {
+   reinplace -W ${worksrcpath} "s|^#!/usr/bin/env perl|#!${prefix}/bin/perl|" \
+      cloc sqlite_formatter
+}
+
+build {}
+
+destroot.args       prefix=${prefix}
