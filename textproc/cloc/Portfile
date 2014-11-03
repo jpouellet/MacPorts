@@ -35,3 +35,5 @@ patch {
 build {}
 
 destroot.args       prefix=${prefix}
+
+livecheck.regex     ${name}-(\\d+(?:\\.\\d+)*)\.pl
