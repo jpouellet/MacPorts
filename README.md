@@ -41,7 +41,7 @@ These are some [MacPorts] I maintain, in various states of being updated.
  - security/[signify]: cryptographically sign and verify files
 [signify]: http://www.openbsd.org/cgi-bin/man.cgi/OpenBSD-current/man1/signify.1
 
- - textproc/[cloc]: counts lines of course code
+ - textproc/[cloc]: counts lines of source code
 [cloc]: http://cloc.sourceforge.net/
 
  - textproc/[mdocml]: UNIX manpage compiler
