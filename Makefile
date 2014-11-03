@@ -1,6 +1,4 @@
-all: README.md PortIndex
-
-README.md: README.md.m4 mkreadme.sh */*/Portfile
+README.md: README.md.m4 mkreadme.sh PortIndex
 	m4 $< > $@
 
 PortIndex: */*/Portfile
