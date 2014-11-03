@@ -8,6 +8,7 @@ version             1.62
 categories          textproc
 license             GPL-2
 platforms           darwin
+supported_archs     noarch
 maintainers         vt.edu:jpo openmaintainer
 description         counts lines of source code
 long_description    cloc counts blank lines, comment lines, and physical \
