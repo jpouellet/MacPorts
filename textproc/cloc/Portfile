@@ -9,7 +9,7 @@ categories          textproc
 license             GPL-2
 platforms           darwin
 maintainers         vt.edu:jpo openmaintainer
-description         counts lines of course code
+description         counts lines of source code
 long_description    cloc counts blank lines, comment lines, and physical \
                     lines of source code in many programming languages. \
                     Given two versions of a code base, cloc can compute \
