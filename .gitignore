@@ -2,3 +2,4 @@ PortIndex
 PortIndex.quick
 **/**/work
 devel/tracetest/
+.cache/
