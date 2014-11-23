@@ -2,6 +2,9 @@ These are some [MacPorts] I maintain, in various states of being updated.
 [MacPorts]: https://www.macports.org/
 
 
+ - devel/[cvs]: Concurrent Versions System
+[cvs]: http://www.nongnu.org/cvs/
+
  - devel/[cxxtest]: C++ unit testing framework
 [cxxtest]: http://cxxtest.com/
 
