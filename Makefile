@@ -7,4 +7,4 @@ PortIndex: */*/Portfile
 	portindex
 
 clean:
-	rm -rf .cache
+	rm -rf .cache PortIndex{,.quick}
