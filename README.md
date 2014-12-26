@@ -50,6 +50,9 @@ These are some [MacPorts] I maintain, in various states of being updated.
  - textproc/[mdocml]: UNIX manpage compiler
 [mdocml]: http://mdocml.bsd.lv/
 
+ - textproc/[the_silver_searcher]: A code-searching tool similar to ack, but faster.
+[the_silver_searcher]: https://github.com/ggreer/the_silver_searcher
+
  - x11/[dmenu]: efficient dynamic menu for X
 [dmenu]: http://tools.suckless.org/dmenu/
 
