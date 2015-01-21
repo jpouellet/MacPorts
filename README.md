@@ -38,6 +38,9 @@ These are some [MacPorts] I maintain, in various states of being updated.
  - office/[task]: Taskwarrior is a command-line task management tool
 [task]: http://taskwarrior.org/
 
+ - office/[vit]: Vit is a full-screen terminal interface for Taskwarrior
+[vit]: http://tasktools.org/projects/vit.html
+
  - perl/[p5-json-parse]: Read JSON into a Perl variable
 [p5-json-parse]: http://search.cpan.org/dist/JSON-Parse/
 
