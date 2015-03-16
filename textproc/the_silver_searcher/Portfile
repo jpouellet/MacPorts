@@ -4,7 +4,8 @@
 PortSystem          1.0
 PortGroup           github 1.0
 
-github.setup        ggreer the_silver_searcher 0.29.0
+github.setup        ggreer the_silver_searcher 0.29.1
+revision            1
 categories          textproc
 maintainers         g5pw openmaintainer
 platforms           darwin
@@ -13,8 +14,8 @@ description         A code-searching tool similar to ack, but faster.
 long_description    \
   An attempt to make something better than ack, which itself is better than grep.
 
-checksums           rmd160  c69be8e6e19b30eba5de22824b9a5a3a72b3f5b6 \
-                    sha256  e5a1b7b906a1b7e4c041545e0b91955ab2edac30d56bcd5e84e8e460935ff282
+checksums           rmd160  a2d4fc179cbaa9acd0efd10e6a0d330fdb42d19d \
+                    sha256  7a6831894c3070a74861f3dca46dbca928573d0f157f138ca1568e7bb9173419
 
 depends_build       port:pkgconfig
 depends_lib         port:pcre \
