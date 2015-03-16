@@ -11,9 +11,6 @@ These are some [MacPorts] I maintain, in various states of being updated.
  - graphics/[ilmbase]: OpenEXR ILM Base libraries
 [ilmbase]: http://www.openexr.com/
 
- - graphics/[openexr]: OpenEXR Graphics Library
-[openexr]: http://www.openexr.com/
-
  - graphics/[openexr_viewers]: Viewers for the OpenEXR image format.
 [openexr_viewers]: http://www.openexr.com/
 
