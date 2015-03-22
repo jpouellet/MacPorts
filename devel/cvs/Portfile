@@ -39,4 +39,4 @@ variant gssapi {
                             --with-gssapi
 }
 
-livecheck.type      regex
+#livecheck.type      regex
