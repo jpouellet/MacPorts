@@ -5,7 +5,7 @@ These are some [MacPorts] I maintain, in various states of being updated.
  - archivers/[deco-archive]: provides support for popular archive formats to deco
 [deco-archive]: http://hartlich.com/deco/archive/
 
- - archivers/[deco]: deco file extraction framework
+ - archivers/[deco]: file extraction framework
 [deco]: http://hartlich.com/deco/
 
  - devel/[cvs]: Concurrent Versions System
