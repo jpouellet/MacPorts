@@ -9,7 +9,7 @@ categories          archivers
 license             GPL-3
 platforms           darwin
 maintainers         vt.edu:jpo openmaintainer
-description         deco file extraction framework
+description         file extraction framework
 long_description    deco is a Un*x program, written in SUSv3-compliant C99, \
                     that is able to extract various archive file formats. \
                     It focuses on consistent behavior and has a modular \
