@@ -18,7 +18,7 @@ long_description    OpenSCAD provides constructive solid geometry modeling via \
 platforms           darwin
 homepage            http://www.openscad.org/
 
-master_sites        http://files.openscad.org
+master_sites        http://files.openscad.org/
 distfiles           ${distname}.src${extract.suffix}
 
 checksums           rmd160  ea55d3d5e467e528654d5e98f5f149e10181a371 \
