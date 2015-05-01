@@ -5,8 +5,7 @@ PortSystem          1.0
 PortGroup           qmake 1.0
 
 name                openscad
-version             2014.03
-revision            3
+version             2015.03-1
 license             GPL-2
 categories          cad
 maintainers         nomaintainer
@@ -21,8 +20,8 @@ homepage            http://www.openscad.org/
 master_sites        http://files.openscad.org/
 distfiles           ${distname}.src${extract.suffix}
 
-checksums           rmd160  ea55d3d5e467e528654d5e98f5f149e10181a371 \
-                    sha256  865fdc637a3ceb0678d35e88995411d8e70e8a7937625d7ede147a1570a561c3
+checksums           rmd160  6d0c1101816aa727957ea4e6d11926cd6313db82 \
+                    sha256  61e0dd3cd107e5670d727526700104cca5ac54a1f0a84117fcc9e57bf3b6b279
 
 depends_build-append \
                     port:bison \
