@@ -8,7 +8,7 @@ name                openscad
 version             2014.03
 revision            3
 license             GPL-2
-categories          science
+categories          cad
 maintainers         nomaintainer
 description         OpenSCAD is a software for creating solid 3D CAD objects
 long_description    OpenSCAD is a software for creating solid 3D CAD objects. \
