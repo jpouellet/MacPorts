@@ -3,3 +3,5 @@ PortIndex.quick
 */*/work
 devel/tracetest/
 .cache/
+Portfile.orig
+Portfile.diff
