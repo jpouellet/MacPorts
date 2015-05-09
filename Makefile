@@ -1,5 +1,3 @@
-.PHONY: README.md
-
 README.md: README.md.m4 mkreadme.sh PortIndex */*/Portfile
 	m4 $< > $@
 
