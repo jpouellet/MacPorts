@@ -4,7 +4,7 @@
 PortSystem          1.0
 
 name                iverilog
-version             0.9.6
+version             0.9.7
 set branch          [join [lrange [split ${version} .] 0 1] .]
 categories          science
 license             GPL-2+
@@ -26,8 +26,8 @@ homepage            http://iverilog.icarus.com/
 master_sites        ftp://ftp.icarus.com/pub/eda/verilog/v${branch}/
 distname            verilog-${version}
 
-checksums           rmd160  19c422fbb2b0834a7408a5d549015f604dd3cabe \
-                    sha256  25304d5d58d6411fcd1ab94992a505215eea5a6bbd9779c2be2d9d19f38cd54a
+checksums           rmd160  3bac03ca703465a43c5a0a8175a3d27ee00f49a7 \
+                    sha256  7a5e72e17bfb4c3a59264d8f3cc4e70a7c49c1307173348fdd44e079388e7454
 
 depends_lib         port:bzip2 \
                     port:readline \
