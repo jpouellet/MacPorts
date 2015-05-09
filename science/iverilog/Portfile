@@ -41,18 +41,12 @@ destroot.destdir    prefix=${destroot}${prefix}
 post-destroot {
     set docdir ${destroot}${prefix}/share/doc/${name}
     xinstall -d ${docdir}
-    xinstall -W ${worksrcpath} \
-        BUGS.txt developer-quick-start.txt lpm.txt t-dll.txt \
-        QUICK_START.txt extensions.txt macosx.txt va_math.txt \
-        README.txt glossary.txt mingw.txt vpi.txt \
-        attributes.txt ieee1364-notes.txt netlist.txt \
-        xilinx-hint.txt ivl_target.txt swift.txt \
+    file copy ${worksrcpath}/examples ${docdir}
+    xinstall -m 644 {*}[glob ${worksrcpath}/*.txt] ${docdir}
+    xinstall -d ${docdir}/vvp
+    xinstall -m 644 {*}[glob ${worksrcpath}/vvp/*.txt] ${docdir}/vvp
+    xinstall -m 644 -W ${worksrcpath} cadpli/cadpli.txt ivlpp/ivlpp.txt \
         ${docdir}
-
-    set exampledir ${destroot}${prefix}/share/example
-    xinstall -d ${exampledir}
-    file copy ${worksrcpath}/examples ${exampledir}
-    file rename ${exampledir}/examples ${exampledir}/${name}
 }
 
 platform darwin 8 {
