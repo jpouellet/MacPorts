@@ -8,6 +8,9 @@ These are some [MacPorts] I maintain, in various states of being updated.
  - archivers/[deco]: file extraction framework
 [deco]: http://hartlich.com/deco/
 
+ - cad/[openscad]: Solid 3D CAD modeler for programmers
+[openscad]: http://www.openscad.org/
+
  - devel/[cvs]: Concurrent Versions System
 [cvs]: http://www.nongnu.org/cvs/
 
@@ -46,6 +49,9 @@ These are some [MacPorts] I maintain, in various states of being updated.
 
  - perl/[p5-json-parse]: Read JSON into a Perl variable
 [p5-json-parse]: http://search.cpan.org/dist/JSON-Parse/
+
+ - science/[iverilog]: Icarus Verilog
+[iverilog]: http://iverilog.icarus.com/
 
  - security/[bcrypt]: cross platform file encryption utility
 [bcrypt]: http://bcrypt.sourceforge.net/
