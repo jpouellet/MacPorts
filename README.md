@@ -8,14 +8,14 @@ These are some [MacPorts] I maintain, in various states of being updated.
  - archivers/[deco]: file extraction framework
 [deco]: http://hartlich.com/deco/
 
- - cad/[openscad]: Solid 3D CAD modeler for programmers
-[openscad]: http://www.openscad.org/
-
  - devel/[cvs]: Concurrent Versions System
 [cvs]: http://www.nongnu.org/cvs/
 
  - devel/[cxxtest]: C++ unit testing framework
 [cxxtest]: http://cxxtest.com/
+
+ - devel/[libsodium]: Portable and packageable NaCl-based crypto library
+[libsodium]: https://github.com/jedisct1/libsodium
 
  - graphics/[ilmbase]: OpenEXR ILM Base libraries
 [ilmbase]: http://www.openexr.com/
