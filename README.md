@@ -59,6 +59,9 @@ These are some [MacPorts] I maintain, in various states of being updated.
  - security/[signify]: cryptographically sign and verify files
 [signify]: http://www.openbsd.org/cgi-bin/man.cgi/OpenBSD-current/man1/signify.1
 
+ - sysutils/[ffind]: Friendly replacement for find(1). Feels like ack(1).
+[ffind]: https://github.com/sjl/friendly-find
+
  - textproc/[cloc]: counts lines of source code
 [cloc]: http://cloc.sourceforge.net/
 
