@@ -14,6 +14,9 @@ These are some [MacPorts] I maintain, in various states of being updated.
  - devel/[cxxtest]: C++ unit testing framework
 [cxxtest]: http://cxxtest.com/
 
+ - devel/[libassuan]: Assuan IPC Library
+[libassuan]: http://www.gnupg.org/related_software/libassuan/index.en.html
+
  - devel/[libsodium]: Portable and packageable NaCl-based crypto library
 [libsodium]: https://github.com/jedisct1/libsodium
 
@@ -28,6 +31,9 @@ These are some [MacPorts] I maintain, in various states of being updated.
 
  - graphics/[povray]: Persistence Of Vision RAYtracer
 [povray]: http://www.povray.org/
+
+ - mail/[gnupg21]: GNU pretty-good-privacy package
+[gnupg21]: http://www.gnupg.org
 
  - mail/[lbdb]: The little brother's database for the mutt mail reader.
 [lbdb]: http://www.spinnaker.de/lbdb/
