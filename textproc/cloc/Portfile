@@ -32,8 +32,9 @@ depends_run-append  port:perl${perl_version} \
 use_configure       no
 
 patch {
-   reinplace -W ${worksrcpath} \
-      "s|^#!/usr/bin/env perl|#!${prefix}/bin/perl5.16|" cloc sqlite_formatter
+    reinplace -W ${worksrcpath} \
+        "s|^#!/usr/bin/env perl|#!${prefix}/bin/perl${perl_version}|" \
+         cloc sqlite_formatter
 }
 
 build {}
@@ -41,7 +42,8 @@ build {}
 destroot.args-append prefix=${prefix}
 
 post-destroot {
-    reinplace -W ${destroot}${prefix}/bin "s|#!/usr/bin/env perl|#! ${prefix}/bin/perl${perl_version}|" \
+    reinplace -W ${destroot}${prefix}/bin \
+        "s|#!/usr/bin/env perl|#! ${prefix}/bin/perl${perl_version}|" \
         cloc
 }
 
