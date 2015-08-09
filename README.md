@@ -62,6 +62,9 @@ These are some [MacPorts] I maintain, in various states of being updated.
  - security/[bcrypt]: cross platform file encryption utility
 [bcrypt]: http://bcrypt.sourceforge.net/
 
+ - security/[scrypt]: key derivation function
+[scrypt]: http://www.tarsnap.com/scrypt.html
+
  - security/[signify]: cryptographically sign and verify files
 [signify]: http://www.openbsd.org/cgi-bin/man.cgi/OpenBSD-current/man1/signify.1
 
