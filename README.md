@@ -8,6 +8,9 @@ These are some [MacPorts] I maintain, in various states of being updated.
  - archivers/[deco]: file extraction framework
 [deco]: http://hartlich.com/deco/
 
+ - databases/[sqlite3]: an embedded SQL database engine
+[sqlite3]: http://www.sqlite.org/
+
  - devel/[cvs]: Concurrent Versions System
 [cvs]: http://www.nongnu.org/cvs/
 
@@ -19,6 +22,9 @@ These are some [MacPorts] I maintain, in various states of being updated.
 
  - devel/[libsodium]: Portable and packageable NaCl-based crypto library
 [libsodium]: https://github.com/jedisct1/libsodium
+
+ - devel/[ncurses]: emulation of curses in System V Release 4.0
+[ncurses]: http://www.gnu.org/software/ncurses/ncurses.html
 
  - graphics/[ilmbase]: OpenEXR ILM Base libraries
 [ilmbase]: http://www.openexr.com/
@@ -85,6 +91,9 @@ These are some [MacPorts] I maintain, in various states of being updated.
 
  - x11/[i3]: improved tiling wm
 [i3]: http://i3wm.org/
+
+ - x11/[xkbcommon]: library to handle keyboard descriptions
+[xkbcommon]: http://xkbcommon.org/
 
  - x11/[xorg-xcb-util-cursor]: X.org xcb-util-cursor
 [xorg-xcb-util-cursor]: http://xcb.freedesktop.org/
