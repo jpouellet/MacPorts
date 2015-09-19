@@ -1,0 +1,39 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id$
+
+PortSystem          1.0
+
+name                xkbcommon
+version             0.5.0
+categories          x11 devel
+license             X11
+platforms           darwin
+maintainers         nomaintainer
+description         library to handle keyboard descriptions
+long_description    xkbcommon is a library to handle keyboard descriptions, \
+                    including loading them from disk, parsing them and \
+                    handling their state. It's mainly meant for client \
+                    toolkits, window systems, and other system applications\; \
+                    currently that includes Wayland, kmscon, GTK+, Qt, \
+                    Clutter, and more. It is also used by some XCB \
+                    applications for proper keyboard support.
+
+homepage            http://xkbcommon.org/
+master_sites        ${homepage}download/
+distname            lib${name}-${version}
+
+use_xz              yes
+
+checksums           rmd160 3ac8966d98d8afb786cc7d8bc7d19b36d7055655 \
+                    sha256 90bd7824742b9a6f52a6cf80e2cadd6f5349cf600a358d08260772615b89d19c
+
+patchfiles          patch-Makefile.in.diff
+
+depends_build       port:pkgconfig
+depends_lib         port:bison \
+                    port:xorg-libxkbfile
+                    # probably others
+
+livecheck.type      regex
+livecheck.url       ${homepage}
+livecheck.regex     ${name}-(\\d+(?:\\.\\d+)*)

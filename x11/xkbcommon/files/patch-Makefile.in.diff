@@ -1,0 +1,18 @@
+--- Makefile.in
++++ Makefile.in
+@@ -859,7 +859,6 @@ libxkbcommon_la_SOURCES = \
+ 	src/utils.c \
+ 	src/utils.h
+ 
+-libxkbcommon_la_LDFLAGS = -Wl,--version-script=${srcdir}/xkbcommon.map
+ @ENABLE_X11_TRUE@xkbcommon_x11includedir = $(xkbcommonincludedir)
+ @ENABLE_X11_TRUE@xkbcommon_x11include_HEADERS = \
+ @ENABLE_X11_TRUE@	xkbcommon/xkbcommon-x11.h
+@@ -867,7 +866,6 @@ libxkbcommon_la_LDFLAGS = -Wl,--version-script=${srcdir}/xkbcommon.map
+ @ENABLE_X11_TRUE@libxkbcommon_x11_la_CFLAGS = $(AM_CFLAGS) $(XCB_XKB_CFLAGS)
+ @ENABLE_X11_TRUE@libxkbcommon_x11_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(top_srcdir)/src/x11
+ @ENABLE_X11_TRUE@libxkbcommon_x11_la_LIBADD = libxkbcommon.la $(XCB_XKB_LIBS)
+-@ENABLE_X11_TRUE@libxkbcommon_x11_la_LDFLAGS = -Wl,--version-script=${srcdir}/xkbcommon-x11.map
+ @ENABLE_X11_TRUE@libxkbcommon_x11_la_SOURCES = \
+ @ENABLE_X11_TRUE@	src/x11/keymap.c \
+ @ENABLE_X11_TRUE@	src/x11/state.c \
