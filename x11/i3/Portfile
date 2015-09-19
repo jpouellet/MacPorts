@@ -4,7 +4,7 @@
 PortSystem          1.0
 
 name                i3
-version             4.6
+version             4.10.4
 categories          x11 x11-wm
 license             BSD
 platforms           darwin
@@ -18,25 +18,26 @@ long_description    i3 is a tiling window manager, completely written from \
 homepage            http://i3wm.org/
 master_sites        ${homepage}downloads/
 
-checksums           rmd160  7f25c3b700e5255ad916b4348b22f3569d1f8c8d \
-                    sha256  f5d2118441cec8b623d18610f3793c55df9da6af15b4df8523e86309096956e1
+checksums           rmd160  5cda92d9e8183d5a49674482f40952afaab88aa9 \
+                    sha256  dd4fa7a5c5b8feaf83f196fc181bfd33aff65c11d81c91b3ae9d9d3d2540655e
 
 # perl dep should be handled better
 # asciidoc seems to not be used
 # other stuff might not be required
-depends_build       port:pkg-config \
-                    bin:perl:perl \
+depends_build       port:pkgconfig \
                     port:asciidoc \
                     port:xmlto \
                     port:p5-pod-simple \
                     port:docbook-xml-4.5
 
 # libxcursor changed to xcb-util-cursor in devel branch
-depends_lib         port:xorg-libxcb \
+depends_lib         port:perl5.22 \
+                    port:xorg-libxcb \
+                    port:xkbcommon \
                     port:xorg-xcb-util \
                     port:xorg-xcb-util-wm \
                     port:xorg-xcb-util-keysyms \
-                    port:xorg-libXcursor \
+                    port:xorg-xcb-util-cursor \
                     port:libev \
                     port:yajl \
                     port:pcre \
@@ -47,8 +48,6 @@ depends_lib         port:xorg-libxcb \
 variant universal   {}
 
 use_bzip2           yes
-
-patchfiles          patch-src-i3.mk.diff
 
 use_configure       no
 
