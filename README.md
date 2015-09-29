@@ -1,4 +1,4 @@
-These are some [MacPorts] I maintain, in various states of being updated.
+These are some [MacPorts] I maintain(ed), in various states of being updated.
 [MacPorts]: https://www.macports.org/
 
 
@@ -19,6 +19,9 @@ These are some [MacPorts] I maintain, in various states of being updated.
 
  - devel/[libassuan]: Assuan IPC Library
 [libassuan]: http://www.gnupg.org/related_software/libassuan/index.en.html
+
+ - devel/[libbsd]: Utility functions from BSD systems
+[libbsd]: http://libbsd.freedesktop.org/
 
  - devel/[libsodium]: Portable and packageable NaCl-based crypto library
 [libsodium]: https://github.com/jedisct1/libsodium
