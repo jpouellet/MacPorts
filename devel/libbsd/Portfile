@@ -1,0 +1,29 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id$
+
+PortSystem          1.0
+
+name                libbsd
+version             0.7.0
+categories          devel
+license             {BSD MIT}
+platforms           darwin
+maintainers         vt.edu:jpo openmaintainer
+description         provides useful functions commonly found on BSD systems
+long_description    This library provides useful functions commonly found \
+                    on BSD systems, and lacking on others like GNU systems, \
+                    thus making it easier to port projects with strong BSD \
+                    origins, without needing to embed the same code over and \
+                    over again on each project.
+
+homepage            http://libbsd.freedesktop.org/
+master_sites        ${homepage}releases/
+
+checksums           rmd160 38d70da1d77a93532a42a08a9126b6c88423a366 \
+                    sha256 0f3b0e17e5c34c038126e0a04351b11e23c6101a7d0ce3beeab29bb6415c10bb
+
+use_xz              yes
+
+livecheck.type      regex
+livecheck.url       ${master_sites}?C=M&O=D
+livecheck.regex     ${name}-(\\d+(?:\\.\\d+)*)
