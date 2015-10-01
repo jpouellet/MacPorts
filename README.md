@@ -17,6 +17,9 @@ These are some [MacPorts] I maintain(ed), in various states of being updated.
  - devel/[cxxtest]: C++ unit testing framework
 [cxxtest]: http://cxxtest.com/
 
+ - devel/[git-cvs]: incrementally import changesets from CVS to Git
+[git-cvs]: https://github.com/ustuehler/git-cvs
+
  - devel/[libassuan]: Assuan IPC Library
 [libassuan]: http://www.gnupg.org/related_software/libassuan/index.en.html
 
@@ -28,6 +31,9 @@ These are some [MacPorts] I maintain(ed), in various states of being updated.
 
  - devel/[ncurses]: emulation of curses in System V Release 4.0
 [ncurses]: http://www.gnu.org/software/ncurses/ncurses.html
+
+ - devel/[rcsparse]: A fast RCS file parsing library
+[rcsparse]: http://ww2.fs.ei.tum.de/~corecode/hg/rcsparse
 
  - graphics/[ilmbase]: OpenEXR ILM Base libraries
 [ilmbase]: http://www.openexr.com/
@@ -87,7 +93,7 @@ These are some [MacPorts] I maintain(ed), in various states of being updated.
 [mdocml]: http://mdocml.bsd.lv/
 
  - textproc/[the_silver_searcher]: A code-searching tool similar to ack, but faster.
-[the_silver_searcher]: https://github.com/ggreer/the_silver_searcher
+[the_silver_searcher]: http://geoff.greer.fm/ag/
 
  - x11/[dmenu]: efficient dynamic menu for X
 [dmenu]: http://tools.suckless.org/dmenu/
