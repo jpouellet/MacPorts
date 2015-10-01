@@ -23,8 +23,6 @@ depends_build       port:pkgconfig
 depends_lib         port:pcre \
                     port:xz
 
-use_autoreconf      yes
-
 build.args-append   V=1
 
 post-destroot {
