@@ -1,0 +1,29 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id$
+
+PortSystem          1.0
+PortGroup           python 1.0
+PortGroup           github 1.0
+
+github.setup        corecode rcsparse 60871fde79
+version             20140224
+categories          python textproc devel
+license             AGPL-3+
+maintainers         vt.edu:jpo openmaintainer
+platforms           darwin
+
+description         A fast RCS file parsing library
+long_description    ${description}
+
+homepage            http://ww2.fs.ei.tum.de/~corecode/hg/rcsparse
+# Dead, and no new home announced. That's why we're getting it from github.
+# Still keeping it here though in case it comes back. I emailed the author
+# and the email bounced. I pinged him on IRC and didn't hear back.
+# This project seems abandoned.
+
+checksums           rmd160 c08f5751c19ec8c135f755a53ff203b524d1f00e \
+                    sha256 d7a35d0c4088cb9f6940f6b2e03401ed3e99f83656515f5dea85cb8f8b96164d
+
+patchfiles          patch-rcsparse_c patch-py-rcsparse_c
+
+python.versions     27
