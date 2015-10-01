@@ -7,7 +7,7 @@ PortGroup           github 1.0
 
 github.setup        ustuehler git-cvs d068834563
 version             20150817
-categories          python textproc devel
+categories          devel textproc python
 license             ISC
 maintainers         vt.edu:jpo openmaintainer
 platforms           darwin
