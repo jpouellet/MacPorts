@@ -1,0 +1,22 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id$
+
+PortSystem          1.0
+PortGroup           python 1.0
+PortGroup           github 1.0
+
+github.setup        ustuehler git-cvs d068834563
+version             20150817
+categories          python textproc devel
+license             ISC
+maintainers         vt.edu:jpo openmaintainer
+platforms           darwin
+
+description         incrementally import changesets from CVS to Git
+long_description    git-cvs is a tool to incrementally import changesets \
+                    from CVS into a Git repository with stable commit hashes.
+
+checksums           rmd160  77aa12c3c861c3f986d837f4e4a9bfbd10c43e2b \
+                    sha256  c9bf13b9dceb315625034e60727850250f67973e055ff764987a726283c4eba6
+
+python.default_version  27
