@@ -7,7 +7,7 @@ PortGroup           github 1.0
 
 github.setup        corecode rcsparse 60871fde79
 version             20140224
-categories          python textproc devel
+categories          devel textproc python
 license             AGPL-3+
 maintainers         vt.edu:jpo openmaintainer
 platforms           darwin
@@ -24,6 +24,6 @@ homepage            http://ww2.fs.ei.tum.de/~corecode/hg/rcsparse
 checksums           rmd160 c08f5751c19ec8c135f755a53ff203b524d1f00e \
                     sha256 d7a35d0c4088cb9f6940f6b2e03401ed3e99f83656515f5dea85cb8f8b96164d
 
-patchfiles          patch-rcsparse_c patch-py-rcsparse_c
+patchfiles          patch-rcsparse_c.diff patch-py-rcsparse_c.diff
 
 python.versions     27
