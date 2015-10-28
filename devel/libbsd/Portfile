@@ -8,7 +8,7 @@ version             0.7.0
 categories          devel
 license             {BSD MIT}
 platforms           darwin
-maintainers         vt.edu:jpo openmaintainer
+maintainers         nomaintainer
 description         provides useful functions commonly found on BSD systems
 long_description    This library provides useful functions commonly found \
                     on BSD systems, and lacking on others like GNU systems, \

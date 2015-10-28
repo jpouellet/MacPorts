@@ -9,7 +9,7 @@ categories          devel net
 platforms           darwin
 license             GPL-2+
 installs_libs       no
-maintainers         vt.edu:jpo openmaintainer
+maintainers         nomaintainer
 description         Concurrent Versions System
 
 long_description    Old version control system.

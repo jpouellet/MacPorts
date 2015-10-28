@@ -9,7 +9,7 @@ github.setup        ustuehler git-cvs d068834563
 version             20150817
 categories          devel textproc python
 license             ISC
-maintainers         vt.edu:jpo openmaintainer
+maintainers         nomaintainer
 platforms           darwin
 
 description         incrementally import changesets from CVS to Git

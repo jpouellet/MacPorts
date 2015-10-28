@@ -9,7 +9,7 @@ github.setup        corecode rcsparse 60871fde79
 version             20140224
 categories          devel textproc python
 license             AGPL-3+
-maintainers         vt.edu:jpo openmaintainer
+maintainers         nomaintainer
 platforms           darwin
 
 description         A fast RCS file parsing library

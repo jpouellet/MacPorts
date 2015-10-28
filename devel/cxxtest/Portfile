@@ -8,7 +8,7 @@ version             4.3
 categories          devel
 license             GPL-3
 platforms           darwin
-maintainers         vt.edu:jpo openmaintainer
+maintainers         nomaintainer
 description         C++ unit testing framework
 long_description    CxxTest is a unit testing framework for C++ that is \
                     similar in spirit to JUnit, CppUnit, and xUnit. CxxTest \
